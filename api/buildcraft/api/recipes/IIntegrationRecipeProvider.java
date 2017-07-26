@@ -1,5 +1,6 @@
 package buildcraft.api.recipes;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -7,7 +8,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
 /** Provides a way of registering complex recipes without needing to register every possible variant. If you want the
@@ -20,7 +20,7 @@ public interface IIntegrationRecipeProvider {
      * @param toIntegrate A list of stacks to try to integrate to the
      * @return */
     @Nullable
-    IntegrationRecipe getRecipeFor(@Nonnull ItemStack target, @Nonnull NonNullList<ItemStack> toIntegrate);
+    IntegrationRecipe getRecipeFor(@Nullable ItemStack target, @Nonnull List<ItemStack> toIntegrate);
 
     /**
      * Returns recipe by it's name

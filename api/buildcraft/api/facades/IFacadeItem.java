@@ -4,16 +4,16 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.facades;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
 public interface IFacadeItem {
-    FacadeType getFacadeType(@Nonnull ItemStack facade);
+    FacadeType getFacadeType(@Nullable ItemStack facade);
 
-    @Nonnull
+    @Nullable
     ItemStack getFacadeForBlock(IBlockState state);
 
-    IBlockState[] getBlockStatesForFacade(@Nonnull ItemStack facade);
+    IBlockState[] getBlockStatesForFacade(@Nullable ItemStack facade);
 }

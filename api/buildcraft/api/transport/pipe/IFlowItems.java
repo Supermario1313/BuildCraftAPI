@@ -1,6 +1,6 @@
 package buildcraft.api.transport.pipe;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -28,5 +28,5 @@ public interface IFlowItems extends IInjectable {
      * @param colour The colour of the item to be added to the pipe, or null for no colour.
      * @param speed The speed of the item to be added (in blocks per tick) or {@code <=0} if a default should be
      *            used. */
-    void insertItemsForce(@Nonnull ItemStack stack, EnumFacing from, EnumDyeColor colour, double speed);
+    void insertItemsForce(@Nullable ItemStack stack, EnumFacing from, EnumDyeColor colour, double speed);
 }

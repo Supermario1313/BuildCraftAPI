@@ -11,11 +11,12 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.entity.EntityList;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 import buildcraft.api.core.BuildCraftAPI;
 
+//TODO Check if this works
 public class SchematicEntityFactoryRegistry {
     private static final Set<SchematicEntityFactory<?>> FACTORIES = new TreeSet<>();
 
@@ -33,12 +34,12 @@ public class SchematicEntityFactoryRegistry {
 
     public static <S extends ISchematicEntity<S>> void registerFactory(String name,
                                                                       int priority,
-                                                                      List<ResourceLocation> entities,
+                                                                      List<Entity> entities,
                                                                       Supplier<S> supplier) {
         registerFactory(
                 name,
                 priority,
-                context -> entities.contains(EntityList.getKey(context.entity)),
+                context -> entities.contains(context.entity),
                 supplier
         );
     }

@@ -2,7 +2,6 @@ package buildcraft.api.recipes;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
@@ -18,7 +17,7 @@ public final class IntegrationRecipe {
     public final long requiredMicroJoules;
     public final StackDefinition target;
     public final ImmutableList<StackDefinition> toIntegrate;
-    public final @Nonnull ItemStack output;
+    public final @Nullable ItemStack output;
     /**
      * Additional tag used to restore network-transmitted recipe to same state
      * You need to register own {@link IIntegrationRecipeProvider} using {@link IIntegrationRecipeRegistry#addRecipeProvider(IIntegrationRecipeProvider)}
@@ -26,7 +25,7 @@ public final class IntegrationRecipe {
      */
     public final @Nullable NBTTagCompound recipeTag;
 
-    public IntegrationRecipe(ResourceLocation name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
+    public IntegrationRecipe(ResourceLocation name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nullable ItemStack output, @Nullable NBTTagCompound recipeTag) {
         this.name = name;
         this.requiredMicroJoules = requiredMicroJoules;
         this.target = target;
@@ -35,15 +34,15 @@ public final class IntegrationRecipe {
         this.recipeTag = recipeTag;
     }
 
-    public IntegrationRecipe(String name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
+    public IntegrationRecipe(String name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nullable ItemStack output, @Nullable NBTTagCompound recipeTag) {
         this(BuildCraftAPI.nameToResourceLocation(name), requiredMicroJoules, target, toIntegrate, output, recipeTag);
     }
 
-    public IntegrationRecipe(ResourceLocation name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nonnull ItemStack output) {
+    public IntegrationRecipe(ResourceLocation name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nullable ItemStack output) {
         this(name, requiredMicroJoules, target, toIntegrate, output, null);
     }
 
-    public IntegrationRecipe(String name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nonnull ItemStack output) {
+    public IntegrationRecipe(String name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nullable ItemStack output) {
         this(name, requiredMicroJoules, target, toIntegrate, output, null);
     }
 

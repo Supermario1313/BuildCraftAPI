@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
 /** Provides a way of registering complex recipes without needing to register every possible variant. If you want the
@@ -20,7 +19,7 @@ public interface IAssemblyRecipeProvider {
      * null. Note that this will *most likely* be slow to check everything, so you should cache the return value and
      * re-use it when you can. */
     @Nonnull
-    List<AssemblyRecipe> getRecipesFor(@Nonnull NonNullList<ItemStack> possible);
+    List<AssemblyRecipe> getRecipesFor(@Nonnull List<ItemStack> possible);
 
     /**
      * Returns recipe by it's name

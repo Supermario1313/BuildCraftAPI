@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
@@ -44,18 +43,18 @@ public abstract class PipeEventItem extends PipeEvent {
         public final EnumDyeColor colour;
         public final EnumFacing from;
         /** The itemstack that is attempting to be inserted. NEVER CHANGE THIS! */
-        @Nonnull
+        @Nullable
         public final ItemStack attempting;
         /** The count of items that are being accepted into this pipe. Starts off at the stack count of
          * {@link #attempting} */
         public int accepted;
 
-        public TryInsert(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, @Nonnull ItemStack attempting) {
+        public TryInsert(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, @Nullable ItemStack attempting) {
             super(true, holder, flow);
             this.colour = colour;
             this.from = from;
             this.attempting = attempting;
-            this.accepted = attempting.getCount();
+            this.accepted = attempting.stackSize;
         }
 
         /** Stops the item from being accepted. */
@@ -67,16 +66,16 @@ public abstract class PipeEventItem extends PipeEvent {
 
     public static abstract class ReachDest extends PipeEventItem {
         public EnumDyeColor colour;
-        @Nonnull
+        @Nullable
         private ItemStack stack;
 
-        public ReachDest(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, @Nonnull ItemStack stack) {
+        public ReachDest(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, @Nullable ItemStack stack) {
             super(holder, flow);
             this.colour = colour;
             this.stack = stack;
         }
 
-        @Nonnull
+        @Nullable
         public ItemStack getStack() {
             return this.stack;
         }
@@ -94,7 +93,7 @@ public abstract class PipeEventItem extends PipeEvent {
     public static class OnInsert extends ReachDest {
         public final EnumFacing from;
 
-        public OnInsert(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, @Nonnull ItemStack stack, EnumFacing from) {
+        public OnInsert(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, @Nullable ItemStack stack, EnumFacing from) {
             super(holder, flow, colour, stack);
             this.from = from;
         }
@@ -104,7 +103,7 @@ public abstract class PipeEventItem extends PipeEvent {
     public static class ReachCenter extends ReachDest {
         public final EnumFacing from;
 
-        public ReachCenter(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, @Nonnull ItemStack stack, EnumFacing from) {
+        public ReachCenter(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, @Nullable ItemStack stack, EnumFacing from) {
             super(holder, flow, colour, stack);
             this.from = from;
         }
@@ -114,7 +113,7 @@ public abstract class PipeEventItem extends PipeEvent {
     public static class ReachEnd extends ReachDest {
         public final EnumFacing to;
 
-        public ReachEnd(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, @Nonnull ItemStack stack, EnumFacing to) {
+        public ReachEnd(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, @Nullable ItemStack stack, EnumFacing to) {
             super(holder, flow, colour, stack);
             this.to = to;
         }
@@ -131,7 +130,7 @@ public abstract class PipeEventItem extends PipeEvent {
     public static class SideCheck extends PipeEventItem {
         public final EnumDyeColor colour;
         public final EnumFacing from;
-        @Nonnull
+        @Nullable
         public final ItemStack stack;
 
         /** The priorities of each side. Stored inversely to the values given, so a higher priority will have a lower
@@ -139,7 +138,7 @@ public abstract class PipeEventItem extends PipeEvent {
         private final int[] priority = new int[6];
         private final EnumSet<EnumFacing> allowed = EnumSet.allOf(EnumFacing.class);
 
-        public SideCheck(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, @Nonnull ItemStack stack) {
+        public SideCheck(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, @Nullable ItemStack stack) {
             super(holder, flow);
             this.colour = colour;
             this.from = from;
@@ -239,11 +238,11 @@ public abstract class PipeEventItem extends PipeEvent {
     public static class TryBounce extends PipeEventItem {
         public final EnumDyeColor colour;
         public final EnumFacing from;
-        @Nonnull
+        @Nullable
         public final ItemStack stack;
         public boolean canBounce = false;
 
-        public TryBounce(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, @Nonnull ItemStack stack) {
+        public TryBounce(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, @Nullable ItemStack stack) {
             super(holder, flow);
             this.colour = colour;
             this.from = from;
@@ -259,17 +258,15 @@ public abstract class PipeEventItem extends PipeEvent {
             this.entity = entity;
         }
 
-        @Nonnull
+        @Nullable
         public ItemStack getStack() {
             ItemStack item = entity.getEntityItem();
-            return item.isEmpty() ? ItemStack.EMPTY : item;
+            return item == null ? null : item;
         }
 
         public void setStack(ItemStack stack) {
             if (stack == null) {
-                throw new NullPointerException("stack");
-            } else if (stack.isEmpty()) {
-                entity.setEntityItemStack(ItemStack.EMPTY);
+                entity.setEntityItemStack(null);
             } else {
                 entity.setEntityItemStack(stack);
             }
@@ -355,14 +352,14 @@ public abstract class PipeEventItem extends PipeEvent {
     /** Mostly immutable holding class for item stacks. */
     public static class ItemEntry {
         public final EnumDyeColor colour;
-        @Nonnull
+        @Nullable
         public final ItemStack stack;
         public final EnumFacing from;
         /** The list of the destinations to try, in order. */
         @Nullable
         public List<EnumFacing> to;
 
-        public ItemEntry(EnumDyeColor colour, @Nonnull ItemStack stack, EnumFacing from) {
+        public ItemEntry(EnumDyeColor colour, @Nullable ItemStack stack, EnumFacing from) {
             this.colour = colour;
             this.stack = stack;
             this.from = from;

@@ -20,7 +20,7 @@ public enum EnumRedstoneChipset implements IStringSerializable {
     public ItemStack getStack(int stackSize) {
         Item chipset = BCItems.SILICON_REDSTONE_CLIPSET;
         if (chipset == null) {
-            return ItemStack.EMPTY;
+            return null;
         }
 
         return new ItemStack(chipset, stackSize, ordinal());

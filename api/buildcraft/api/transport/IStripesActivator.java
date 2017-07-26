@@ -4,13 +4,13 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.transport;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 public interface IStripesActivator {
-    boolean sendItem(@Nonnull ItemStack itemStack, EnumFacing from);
+    boolean sendItem(@Nullable ItemStack itemStack, EnumFacing from);
 
-    void dropItem(@Nonnull ItemStack itemStack, EnumFacing from);
+    void dropItem(@Nullable ItemStack itemStack, EnumFacing from);
 }
