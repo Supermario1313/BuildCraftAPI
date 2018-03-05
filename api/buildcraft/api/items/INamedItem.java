@@ -1,11 +1,11 @@
 package buildcraft.api.items;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 
 public interface INamedItem {
-    String getName(@Nonnull ItemStack stack);
+    String getName(@Nullable ItemStack stack);
 
-    boolean setName(@Nonnull ItemStack stack, String name);
+    boolean setName(@Nullable ItemStack stack, String name);
 }

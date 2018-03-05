@@ -4,7 +4,6 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.facades;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.state.IBlockState;
@@ -13,7 +12,7 @@ import net.minecraft.item.ItemStack;
 public interface IFacadeItem {
 
     @Nullable
-    default FacadeType getFacadeType(@Nonnull ItemStack stack) {
+    default FacadeType getFacadeType(@Nullable ItemStack stack) {
         IFacade facade = getFacade(stack);
         if (facade == null) {
             return null;
@@ -21,7 +20,7 @@ public interface IFacadeItem {
         return facade.getType();
     }
 
-    @Nonnull
+    @Nullable
     ItemStack getFacadeForBlock(IBlockState state);
 
     /** @param facade The {@link IFacade} instance. NOTE: This MUST be an object returned from
@@ -31,5 +30,5 @@ public interface IFacadeItem {
     ItemStack createFacadeStack(IFacade facade);
 
     @Nullable
-    IFacade getFacade(@Nonnull ItemStack facade);
+    IFacade getFacade(@Nullable ItemStack facade);
 }

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
@@ -29,10 +29,10 @@ public abstract class PipeEventFluid extends PipeEvent {
     public static class TryInsert extends PipeEventFluid {
         public final EnumFacing from;
         /** The incoming fluidstack. Currently changing this does nothing. */
-        @Nonnull
+        @Nullable
         public final FluidStack fluid;
 
-        public TryInsert(IPipeHolder holder, IFlowFluid flow, EnumFacing from, @Nonnull FluidStack fluid) {
+        public TryInsert(IPipeHolder holder, IFlowFluid flow, EnumFacing from, @Nullable FluidStack fluid) {
             super(true, holder, flow);
             this.from = from;
             this.fluid = fluid;

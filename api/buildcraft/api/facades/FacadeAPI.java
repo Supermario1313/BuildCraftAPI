@@ -30,7 +30,7 @@ public final class FacadeAPI {
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setString(NBT_CUSTOM_BLOCK_REG_KEY, state.getBlock().getRegistryName().toString());
         nbt.setInteger(NBT_CUSTOM_BLOCK_META, state.getBlock().getMetaFromState(state));
-        nbt.setTag(NBT_CUSTOM_ITEM_STACK, stack.serializeNBT());
+        nbt.setTag(NBT_CUSTOM_ITEM_STACK, stack != null ? stack.serializeNBT() : new NBTTagCompound());
         FMLInterModComms.sendMessage(IMC_MOD_TARGET, IMC_FACADE_CUSTOM, nbt);
     }
 }

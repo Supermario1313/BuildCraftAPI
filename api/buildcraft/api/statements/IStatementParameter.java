@@ -1,10 +1,11 @@
+
 /** Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
  *
  * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.statements;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,9 +16,9 @@ import buildcraft.api.statements.StatementManager.IParameterReader;
 
 public interface IStatementParameter extends IGuiSlot {
 
-    /** @return An {@link ItemStack} to render for this parameter, or {@link ItemStack#EMPTY} if this should not render
+    /** @return An {@link ItemStack} to render for this parameter, or {@code null} if this should not render
      *         an {@link ItemStack}. */
-    @Nonnull
+    @Nullable
     ItemStack getItemStack();
 
     default DrawType getDrawType() {
@@ -44,7 +45,7 @@ public interface IStatementParameter extends IGuiSlot {
     default void writeToBuf(PacketBuffer buffer) {
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNbt(nbt);
-        buffer.writeCompoundTag(nbt);
+        buffer.writeNBTTagCompoundToBuffer(nbt);
     }
 
     /** This returns the parameter after a left rotation. Used in particular in blueprints orientation. */
@@ -69,7 +70,7 @@ public interface IStatementParameter extends IGuiSlot {
         STACK_ONLY,
 
         /** Only draws the {@link ItemStack}, as returned by {@link IStatementParameter#getItemStack()}, except if
-         * {@link ItemStack#isEmpty()} returns true, in which case this a question mark will be drawn. */
+         * the {@link ItemStack} is {@code null}, in which case this a question mark will be drawn. */
         STACK_ONLY_OR_QUESTION_MARK,
 
         /** Draws {@link #SPRITE_ONLY}, but then also draws {@link #STACK_ONLY} */

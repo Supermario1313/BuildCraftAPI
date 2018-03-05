@@ -1,6 +1,7 @@
 package buildcraft.api.transport.pluggable;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -93,10 +93,10 @@ public abstract class PipePluggable {
     /** Called whenever this pluggable is removed from the pipe. */
     public void onRemove() {}
 
-    /** @param toDrop A list containing all the items to drop (so you should add your items to this list) */
-    public void addDrops(NonNullList<ItemStack> toDrop, int fortune) {
+    /** @param toDrop A list containing all the items to drop (so you should add your items to this list) * */
+    public void addDrops(List<ItemStack> toDrop) {
         ItemStack stack = getPickStack();
-        if (!stack.isEmpty()) {
+        if (stack != null) {
             toDrop.add(stack);
         }
     }
@@ -105,7 +105,7 @@ public abstract class PipePluggable {
      * 
      * @return The stack that should be picked, or ItemStack.EMPTY if no stack can be picked from this pluggable. */
     public ItemStack getPickStack() {
-        return ItemStack.EMPTY;
+        return null;
     }
 
     public boolean onPluggableActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ) {
@@ -142,8 +142,8 @@ public abstract class PipePluggable {
     public float getExplosionResistance(@Nullable Entity exploder, Explosion explosion) {
         return 0;
     }
-
+    
     public boolean canConnectToRedstone(@Nullable EnumFacing to) {
-        return false;
+    	return false;
     }
 }

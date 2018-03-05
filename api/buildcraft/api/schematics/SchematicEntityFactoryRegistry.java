@@ -11,35 +11,36 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.entity.EntityList;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 import buildcraft.api.core.BuildCraftAPI;
 
+//TODO Check if this works
 public class SchematicEntityFactoryRegistry {
     private static final Set<SchematicEntityFactory<?>> FACTORIES = new TreeSet<>();
 
     public static <S extends ISchematicEntity> void registerFactory(String name,
-                                                                    int priority,
-                                                                    Predicate<SchematicEntityContext> predicate,
-                                                                    Supplier<S> supplier) {
+                                                                       int priority,
+                                                                       Predicate<SchematicEntityContext> predicate,
+                                                                       Supplier<S> supplier) {
         FACTORIES.add(new SchematicEntityFactory<>(
-            BuildCraftAPI.nameToResourceLocation(name),
-            priority,
-            predicate,
-            supplier
+                BuildCraftAPI.nameToResourceLocation(name),
+                priority,
+                predicate,
+                supplier
         ));
     }
 
     public static <S extends ISchematicEntity> void registerFactory(String name,
-                                                                    int priority,
-                                                                    List<ResourceLocation> entities,
-                                                                    Supplier<S> supplier) {
+                                                                      int priority,
+                                                                      List<Entity> entities,
+                                                                      Supplier<S> supplier) {
         registerFactory(
-            name,
-            priority,
-            context -> entities.contains(EntityList.getKey(context.entity)),
-            supplier
+                name,
+                priority,
+                context -> entities.contains(context.entity),
+                supplier
         );
     }
 
@@ -47,20 +48,20 @@ public class SchematicEntityFactoryRegistry {
         return ImmutableList.copyOf(FACTORIES);
     }
 
-    @Nonnull
+	@Nonnull
     public static <S extends ISchematicEntity> SchematicEntityFactory<S> getFactoryByInstance(S instance) {
-        // noinspection unchecked
+    	// noinspection unchecked
         return (SchematicEntityFactory<S>) FACTORIES.stream()
-            .filter(schematicEntityFactory -> schematicEntityFactory.clazz == instance.getClass())
-            .findFirst()
-            .orElseThrow(() -> new IllegalStateException("Didn't find a factory for " + instance.getClass()));
+                .filter(schematicEntityFactory -> schematicEntityFactory.clazz == instance.getClass())
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Didn't find a factory for " + instance.getClass()));
     }
 
     @Nullable
     public static SchematicEntityFactory<?> getFactoryByName(ResourceLocation name) {
         return FACTORIES.stream()
-            .filter(schematicEntityFactory -> schematicEntityFactory.name.equals(name))
-            .findFirst()
-            .orElse(null);
+                .filter(schematicEntityFactory -> schematicEntityFactory.name.equals(name))
+                .findFirst()
+                .orElse(null);
     }
 }
