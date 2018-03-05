@@ -1,6 +1,7 @@
 package buildcraft.api.transport.pipe;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -10,7 +11,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
 
 import net.minecraftforge.common.capabilities.Capability;
@@ -67,7 +67,7 @@ public abstract class PipeFlow implements ICapabilityProvider {
 
     public void onTick() {}
 
-    public void addDrops(NonNullList<ItemStack> toDrop, int fortune) {}
+    public void addDrops(List<ItemStack> toDrop, int fortune) {}
 
     public boolean onFlowActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ, EnumPipePart part) {
         return false;

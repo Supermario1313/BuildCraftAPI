@@ -59,7 +59,7 @@ public final class StatementManager {
     }
 
     public static void registerParameter(IParameterReader reader) {
-        registerParameter(reader, buf -> reader.readFromNbt(buf.readCompoundTag()));
+        registerParameter(reader, buf -> reader.readFromNbt(buf.readNBTTagCompoundFromBuffer()));
     }
 
     public static void registerParameter(IParameterReader reader, IParamReaderBuf bufReader) {
