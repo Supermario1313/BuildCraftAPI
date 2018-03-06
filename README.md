@@ -1,3 +1,2 @@
 # BuildCraftAPI
-
-Please don't use this branch to create builds, because it contains non-backported code. However, you can fork this repository and edit this branch if you want to help me with the backport.
+The 1.10.2 backport of the BuildCraft API. Versions 7.2.0 and above.
