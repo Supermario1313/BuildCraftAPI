@@ -21,6 +21,11 @@ public interface IStackFilter {
      * @return True if it does match, false otherwise. */
     boolean matches(@Nullable ItemStack stack);
 
+    default IStackFilter and(IStackFilter filter) {
+        IStackFilter before = this;
+        return (stack) -> before.matches(stack) && filter.matches(stack);
+    }
+    
     /**
      * Returns example stack to match this filter
      */

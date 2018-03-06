@@ -112,7 +112,7 @@ public class BCBlocks {
         }
         if (DEBUG) {
             if (Loader.isModLoaded(modid)) {
-                BCLog.logger.info("[api.blocks] Did not find the block " + regName + " dispite the appropriate mod being loaded (" + modid + ")");
+                BCLog.logger.info("[api.blocks] Did not find the block " + regName + " despite the appropriate mod being loaded (" + modid + ")");
             } else {
                 BCLog.logger.info("[api.blocks] Did not find the block " + regName + " probably because the mod is not loaded (" + modid + ")");
             }

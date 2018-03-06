@@ -5,10 +5,12 @@ import java.io.IOException;
 import javax.annotation.Nonnull;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
 
 import net.minecraftforge.common.capabilities.Capability;
@@ -64,6 +66,8 @@ public abstract class PipeFlow implements ICapabilityProvider {
     public abstract boolean canConnect(EnumFacing face, TileEntity oTile);
 
     public void onTick() {}
+
+    public void addDrops(NonNullList<ItemStack> toDrop, int fortune) {}
 
     public boolean onFlowActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ, EnumPipePart part) {
         return false;

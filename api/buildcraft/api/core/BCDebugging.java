@@ -4,8 +4,10 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.core;
 
+import java.lang.reflect.Method;
 import java.util.Locale;
 
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /** Provides a way to quickly enable or disable certain debug conditions via VM arguments or whether the client/server
@@ -37,6 +39,17 @@ public class BCDebugging {
         // - "log" Major debug options are turned on. Registry setup + API usage etc
         // - "all" All possible debug options are turned on. Lots of spam. Not recommended.
 
+        boolean isDev;
+        try {
+            Method getTileEntity = World.class.getDeclaredMethod("getTileEntity", BlockPos.class);
+            BCLog.logger.info("[debugger] Method found: World.getTileEntity = " + getTileEntity);
+            isDev = true;
+        } catch (Throwable ignored) {
+            // If it didn't find it then we aren't in a dev environment
+            isDev = false;
+        }
+        BCLog.logger.info("[debugger] Not a dev environment!");
+
         String value = System.getProperty("buildcraft.debug");
         if ("enable".equals(value)) DEBUG_STATUS = DebugStatus.ENABLE;
         else if ("all".equals(value)) DEBUG_STATUS = DebugStatus.ALL;
@@ -46,12 +59,13 @@ public class BCDebugging {
         } else if ("log".equals(value)) {
             // Some debugging options are more than just logging, so we will differentiate between them
             DEBUG_STATUS = DebugStatus.LOGGING_ONLY;
-        } else if (World.class.getName().contains("World")) {
-            // Dev environment
-            DEBUG_STATUS = DebugStatus.ENABLE;
         } else {
-            // Most likely a built jar - don't spam people with info they probably don't need
-            DEBUG_STATUS = DebugStatus.NONE;
+            if (isDev) {
+                DEBUG_STATUS = DebugStatus.ENABLE;
+            } else {
+                // Most likely a built jar - don't spam people with info they probably don't need
+                DEBUG_STATUS = DebugStatus.NONE;
+            }
         }
 
         if (DEBUG_STATUS == DebugStatus.ALL) {
@@ -94,7 +108,7 @@ public class BCDebugging {
         if ("complex".equals(actual) || type.name.equals(actual)) {
             BCLog.logger.info("[debugger] Debugging enabled for \"" + option + "\" (" + type + ").");
             return true;
-        } else {
+        } else if (DEBUG_STATUS != DebugStatus.NONE) {
             StringBuilder log = new StringBuilder();
             log.append("[debugger] To enable debugging for ");
             log.append(option);

@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import net.minecraft.util.IStringSerializable;
 
+@Deprecated
 public enum EnumFillerPattern implements IStringSerializable {
     NONE,
     BOX,

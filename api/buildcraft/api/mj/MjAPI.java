@@ -22,7 +22,7 @@ public class MjAPI {
     // ################################
 
     /** A single minecraft joule, in micro joules (the power system base unit) */
-    public static final long ONE_MINECRAFT_JOULE = 1 * 1000L * 1000L;
+    public static final long ONE_MINECRAFT_JOULE = getMjValue();
     /** The same as {@link #ONE_MINECRAFT_JOULE}, but a shorter field name */
     public static final long MJ = ONE_MINECRAFT_JOULE;
 
@@ -115,5 +115,9 @@ public class MjAPI {
         CAP_REDSTONE_RECEIVER = CapabilitiesHelper.ensureRegistration(CAP_REDSTONE_RECEIVER_FIRST, IMjRedstoneReceiver.class);
         CAP_READABLE = CapabilitiesHelper.ensureRegistration(CAP_READABLE_FIRST, IMjReadable.class);
         CAP_PASSIVE_PROVIDER = CapabilitiesHelper.ensureRegistration(CAP_PASSIVE_PROVIDER_FIRST, IMjPassiveProvider.class);
+    }
+
+    private static long getMjValue() {
+        return 1_000_000L;
     }
 }

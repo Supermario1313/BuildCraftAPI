@@ -52,7 +52,7 @@ public abstract class RobotManager {
         try {
             aiRobot.getConstructor(EntityRobotBase.class);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException("AI class " + aiRobot.getName() + " lacks NBT load construtor! This is a bug!");
+            throw new RuntimeException("AI class " + aiRobot.getName() + " lacks NBT load constructor! This is a bug!");
         }
 
         aiRobots.add(aiRobot);
@@ -91,8 +91,8 @@ public abstract class RobotManager {
         return resourceIdByNames.get(resourceIdName);
     }
 
-    public static String getResourceIdName(Class<? extends ResourceId> resouceIdClass) {
-        return resourceIdNames.get(resouceIdClass);
+    public static String getResourceIdName(Class<? extends ResourceId> resourceIdClass) {
+        return resourceIdNames.get(resourceIdClass);
     }
 
     public static Class<?> getResourceIdByLegacyClassName(String resourceIdLegacyClassName) {
