@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * <code>
     &#64;PipeEventHandler <br>
     public void sideCheck(PipeEventItem.SideCheck sideCheck) {<br>
-     // Logic ommited<br>
+     // Logic omitted<br>
     }
  *  
  *   </code> */

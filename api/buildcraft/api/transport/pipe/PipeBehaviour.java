@@ -1,9 +1,12 @@
 package buildcraft.api.transport.pipe;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
@@ -69,4 +72,6 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
     public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
         return null;
     }
+
+    public void addDrops(List<ItemStack> toDrop, int fortune) {}
 }

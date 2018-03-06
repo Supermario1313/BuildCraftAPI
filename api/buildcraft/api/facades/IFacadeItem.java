@@ -10,10 +10,25 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
 public interface IFacadeItem {
-    FacadeType getFacadeType(@Nullable ItemStack facade);
+
+    @Nullable
+    default FacadeType getFacadeType(@Nullable ItemStack stack) {
+        IFacade facade = getFacade(stack);
+        if (facade == null) {
+            return null;
+        }
+        return facade.getType();
+    }
 
     @Nullable
     ItemStack getFacadeForBlock(IBlockState state);
 
-    IBlockState[] getBlockStatesForFacade(@Nullable ItemStack facade);
+    /** @param facade The {@link IFacade} instance. NOTE: This MUST be an object returned from
+     *            {@link IFacadeRegistry#createBasicFacade(IFacadeState, boolean)} or
+     *            {@link IFacadeRegistry#createPhasedFacade(IFacadePhasedState[])}, otherwise a
+     *            {@link ClassCastException} will be thrown! */
+    ItemStack createFacadeStack(IFacade facade);
+
+    @Nullable
+    IFacade getFacade(@Nullable ItemStack facade);
 }

@@ -53,7 +53,7 @@ public class BCItems {
     public static final Item ROBOTICS_PLUGGABLE_ROBOT_STATION;
 
     // BC Silicon
-    public static final Item SILICON_REDSTONE_CLIPSET;
+    public static final Item SILICON_REDSTONE_CHIPSET;
 
     // BC Transport
     public static final Item TRANSPORT_WATERPROOF;
@@ -115,7 +115,7 @@ public class BCItems {
         ROBOTICS_ROBOT_GOGGLES = getRegisteredItem(robotics, "robot_goggles");
 
         final String silicon = "silicon";
-        SILICON_REDSTONE_CLIPSET = getRegisteredItem(silicon, "redstone_chipset");
+        SILICON_REDSTONE_CHIPSET = getRegisteredItem(silicon, "redstone_chipset");
 
         final String transport = "transport";
         TRANSPORT_WATERPROOF = getRegisteredItem(transport, "waterproof");
@@ -156,7 +156,7 @@ public class BCItems {
         }
         if (DEBUG) {
             if (Loader.isModLoaded(modid)) {
-                BCLog.logger.info("[api.items] Did not find the item " + regName + " dispite the appropriate mod being loaded (" + modid + ")");
+                BCLog.logger.info("[api.items] Did not find the item " + regName + " despite the appropriate mod being loaded (" + modid + ")");
             } else {
                 BCLog.logger.info("[api.items] Did not find the item " + regName + " probably because the mod is not loaded (" + modid + ")");
             }

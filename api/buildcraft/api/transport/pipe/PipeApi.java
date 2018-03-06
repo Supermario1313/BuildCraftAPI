@@ -67,7 +67,7 @@ public final class PipeApi {
     }
 
     public static class FluidTransferInfo {
-        /** Controls the maximum amount of fluid that can be transfered around and out of a pipe per tick. Note that
+        /** Controls the maximum amount of fluid that can be transferred around and out of a pipe per tick. Note that
          * this does not affect the flow rate coming into the pipe. */
         public final int transferPerTick;
 
@@ -92,7 +92,7 @@ public final class PipeApi {
         public final long resistancePerTick;
         public final boolean isReceiver;
 
-        /** Sets resistancePerTick to be equal to lossPerTick when full power is being transfered, scaling down to 0.
+        /** Sets resistancePerTick to be equal to lossPerTick when full power is being transferred, scaling down to 0.
          * 
          * @param transferPerTick
          * @param lossPerTick
@@ -101,7 +101,7 @@ public final class PipeApi {
             return new PowerTransferInfo(transferPerTick, lossPerTick, lossPerTick * MjAPI.MJ / transferPerTick, isReceiver);
         }
 
-        /** Sets lossPerTick to be equal to resistancePerTick when full power is being transfered.
+        /** Sets lossPerTick to be equal to resistancePerTick when full power is being transferred.
          * 
          * @param transferPerTick
          * @param resistancePerTick

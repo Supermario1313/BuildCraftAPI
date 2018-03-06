@@ -20,7 +20,7 @@ import buildcraft.api.core.BuildCraftAPI;
 public class SchematicEntityFactoryRegistry {
     private static final Set<SchematicEntityFactory<?>> FACTORIES = new TreeSet<>();
 
-    public static <S extends ISchematicEntity<S>> void registerFactory(String name,
+    public static <S extends ISchematicEntity> void registerFactory(String name,
                                                                        int priority,
                                                                        Predicate<SchematicEntityContext> predicate,
                                                                        Supplier<S> supplier) {
@@ -32,7 +32,7 @@ public class SchematicEntityFactoryRegistry {
         ));
     }
 
-    public static <S extends ISchematicEntity<S>> void registerFactory(String name,
+    public static <S extends ISchematicEntity> void registerFactory(String name,
                                                                       int priority,
                                                                       List<Entity> entities,
                                                                       Supplier<S> supplier) {
@@ -48,9 +48,10 @@ public class SchematicEntityFactoryRegistry {
         return ImmutableList.copyOf(FACTORIES);
     }
 
-    @Nonnull
-    public static SchematicEntityFactory<?> getFactoryByInstance(ISchematicEntity<?> instance) {
-        return FACTORIES.stream()
+	@Nonnull
+    public static <S extends ISchematicEntity> SchematicEntityFactory<S> getFactoryByInstance(S instance) {
+    	// noinspection unchecked
+        return (SchematicEntityFactory<S>) FACTORIES.stream()
                 .filter(schematicEntityFactory -> schematicEntityFactory.clazz == instance.getClass())
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("Didn't find a factory for " + instance.getClass()));

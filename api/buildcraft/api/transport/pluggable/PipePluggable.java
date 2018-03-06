@@ -94,9 +94,9 @@ public abstract class PipePluggable {
     public void onRemove() {}
 
     /** @param toDrop A list containing all the items to drop (so you should add your items to this list) * */
-    public void getDrops(List<ItemStack> toDrop) {
+    public void addDrops(List<ItemStack> toDrop) {
         ItemStack stack = getPickStack();
-        if (!(stack == null)) {
+        if (stack != null) {
             toDrop.add(stack);
         }
     }
@@ -141,5 +141,9 @@ public abstract class PipePluggable {
     /** PipePluggable version of {@link Block#getExplosionResistance(World, BlockPos, Entity, Explosion)} */
     public float getExplosionResistance(@Nullable Entity exploder, Explosion explosion) {
         return 0;
+    }
+    
+    public boolean canConnectToRedstone(@Nullable EnumFacing to) {
+    	return false;
     }
 }
