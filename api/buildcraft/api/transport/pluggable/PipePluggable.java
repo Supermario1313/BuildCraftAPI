@@ -94,7 +94,7 @@ public abstract class PipePluggable {
     public void onRemove() {}
 
     /** @param toDrop A list containing all the items to drop (so you should add your items to this list) * */
-    public void addDrops(List<ItemStack> toDrop) {
+    public void addDrops(List<ItemStack> toDrop, int fortune) {
         ItemStack stack = getPickStack();
         if (stack != null) {
             toDrop.add(stack);
